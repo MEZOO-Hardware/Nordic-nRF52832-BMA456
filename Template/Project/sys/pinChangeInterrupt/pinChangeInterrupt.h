@@ -20,3 +20,7 @@
 #define P11					ARDUINO_0_PIN               
 
 void initPinChangeInterrupt();
+
+void enableBMA456ReadyPin100Hz();
+void disableBMA456ReadyPin100Hz();
+bool isBMA456ReadyPin100Hz();

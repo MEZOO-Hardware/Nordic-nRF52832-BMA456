@@ -18,8 +18,8 @@ void initPeripherals()
     initUART();
 		initSeggerRTT();
     initI2C();
-    initSPI();
-		initADC();
+//    initSPI();
+//		initADC();
 		initPinChangeInterrupt();
 	
 		nrf_delay_ms(20);
@@ -29,6 +29,7 @@ void initPeripherals()
 
 void initSensors()
 {
+		initBMA456();		
 		nrf_delay_ms(50);
     NRF_LOG_INFO("initSensors Completed");
     NRF_LOG_FLUSH();
@@ -36,18 +37,17 @@ void initSensors()
 
 int main()
 {
-//		initPowerHold();	
 		handerLowPowerConsumption();
 		initPeripherals();
 		initSensors();
-		initTimerInterrupt();
+//		initTimerInterrupt();
   
     while (true)
     {
-        for (int i = 0; i < LEDS_NUMBER; i++)
-        {
-            bsp_board_led_invert(i);
-            nrf_delay_ms(100);
-        }
+				if(isBMA456ReadyPin100Hz())
+				{
+						BMA456();
+						disableBMA456ReadyPin100Hz();
+				}
     } // while
 } // main

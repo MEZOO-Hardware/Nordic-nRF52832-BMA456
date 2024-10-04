@@ -25,6 +25,12 @@ void initPortOutClear(uint8_t portNumber)
     clearPort(portNumber);
 }
 
+void initPortToggle(uint8_t portNumber)
+{
+    initPortOut(portNumber);
+    togglePort(portNumber);
+}
+
 void initPort()
 {
     initPortIn(NULL);
@@ -41,12 +47,22 @@ void initNRF52Port()
     initPortOut(PORT18_LED2);
     initPortOut(PORT19_LED3);
     initPortOut(PORT20_LED4);
+}
+
+void initComoPort()
+{
+    initPortOutSet(17); 	// LED1
+    initPortOutSet(16); 	// LED2
 	
-//    initPortOutSet(PORT28_MAX30001_CS);
+		initPortIn2(18);			// AD8232 LDO+
+		initPortIn2(20);			// AD8232 LDO-
+	
+//    initPortIn2(15);  		// SW1
+//    initPortIn2(14);  		// SW2
 }
 
 void initPowerHold()
 {
-    nrf_delay_ms(1000);
-    setPort(PORT24_NULL);
+    nrf_delay_ms(10);
+    initPortOutSet(24);
 }
